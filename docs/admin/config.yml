@@ -1,0 +1,22 @@
+# docs/admin/config.yml
+backend:
+  name: github
+  repo: your-github-username/BlueHorizon-InfoPage  # Replace with your GitHub repo
+  branch: main  # Your default branch
+  base_url: https://bluehorizon.club  # Your site URL
+
+# Media storage (images will go to your existing `pictures` folder)
+media_folder: "pictures"  # Path relative to `docs/`
+public_folder: "/pictures"  # Public URL path
+
+# Content collections (blog posts)
+collections:
+  - name: "blog"
+    label: "Blog Posts"
+    folder: "content/blog"  # New folder for blog posts
+    create: true  # Allow users to create new posts
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    fields:
+      - { name: "title", label: "Title", widget: "string" }
+      - { name: "date", label: "Date", widget: "datetime" }
+      - { name: "body", label: "Content", widget: "markdown" }

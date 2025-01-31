@@ -26,6 +26,9 @@ html:
   favicon: BHlogosmall.png
   use_issues_button: true
   use_repository_button: true
+  extra_navbar: false
+  html_extra_path:
+    - admin/  # Copy admin folder to build output
 
 # Information about where the book exists on the web
 repository:

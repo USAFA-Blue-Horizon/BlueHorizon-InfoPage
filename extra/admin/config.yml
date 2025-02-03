@@ -14,8 +14,7 @@ backend:
 
 media_folder: "docs/images/uploads"
 public_folder: "/images/uploads"
-media_library:
-  name: default
+media_library: {}   # Use an empty object
 
 collections:
   - name: pages

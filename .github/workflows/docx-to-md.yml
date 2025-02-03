@@ -27,18 +27,25 @@ jobs:
           echo "Searching for DOCX files in docs/docx/"
           files=$(find docs/docx -type f -name "*.docx")
           echo "Found files: $files"
-          # For this example, process one file (you can extend for multiple)
-          file=$(echo $files | awk '{print $1}')
-          echo "Processing $file"
-          filename=$(basename "$file" .docx)
-          pandoc "$file" -f docx -t markdown --wrap=none -o docs/md/"$filename".md
-          echo "Converted $file to docs/md/$filename.md"
-          echo "::set-output name=mdfile::docs/md/$filename.md"
+          if [ -z "$files" ]; then
+            echo "No DOCX files found. Exiting."
+            exit 0
+          fi
+          for file in $files; do
+            echo "Processing $file"
+            filename=$(basename "$file" .docx)
+            pandoc "$file" -f docx -t markdown --wrap=preserve -o docs/md/"$filename".md
+            echo "Converted $file to docs/md/$filename.md"
+            echo "mdfile=docs/md/$filename.md" >> $GITHUB_ENV
+          done
+
+      - name: Install js-yaml dependency
+        run: npm install js-yaml
 
       - name: Update TOC
         env:
           COMMIT_MESSAGE: ${{ github.event.head_commit.message }}
-          NEW_FILE: ${{ steps.convert.outputs.mdfile }}
+          NEW_FILE: ${{ env.mdfile }}
         run: |
           echo "Updating TOC with commit message: $COMMIT_MESSAGE and file: $NEW_FILE"
           node .github/scripts/update-toc.js

@@ -5,11 +5,13 @@
     <title>Content Manager</title>
   </head>
   <body>
-    <!-- Load Decap CMS from CDN; using a stable version -->
-    <script src="https://unpkg.com/decap-cms@3.0.0/dist/decap-cms.js"></script>
+    <!-- Load the updated version from unpkg -->
+    <script src="https://unpkg.com/decap-cms@3.5.0/dist/decap-cms.js"></script>
     <script>
-      // Simply initialize the CMS without custom registration.
-      CMS.init();
+      // Delay initialization slightly to help with timing issues.
+      setTimeout(function() {
+        CMS.init();
+      }, 50);
     </script>
   </body>
 </html>

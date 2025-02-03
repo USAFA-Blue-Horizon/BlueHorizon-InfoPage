@@ -9,7 +9,6 @@ parts:
       - file: research
       - file: competition
       - file: support
-      - file: md/test
   - caption: Past Years
     chapters:
       - file: USLI
@@ -17,3 +16,6 @@ parts:
     chapters:
       - file: fusion 360 setup
       - file: website editing
+  - caption: Docx Files
+    chapters:
+      - file: md/test

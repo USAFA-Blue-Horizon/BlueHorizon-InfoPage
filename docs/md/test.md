@@ -4,7 +4,7 @@ Some text **some bold text**
 
 More text we are trying this again
 
-Trying again
+Image test
 
 ## Heading 2
 

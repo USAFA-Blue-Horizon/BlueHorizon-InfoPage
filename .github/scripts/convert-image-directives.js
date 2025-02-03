@@ -44,9 +44,7 @@ fs.readFile(filePath, 'utf8', (err, data) => {
     let output = "```{image} " + imgPath + "\n";
     output += ":width: " + width + "\n";
     output += ":height: " + height + "\n";
-    if (align) {
-      output += ":align: " + "center" + "\n";
-    }
+    output += ":align: " + "center" + "\n";
     output += "```";
     return output;
   });

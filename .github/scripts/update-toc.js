@@ -11,23 +11,24 @@ if (!commitMessage || !newFile) {
   process.exit(1);
 }
 
-// Extract the file base name (ensure it includes the "md/" prefix)
+// Extract the file base name and ensure it has the "md/" prefix
 const fileBase = "md/" + path.basename(newFile, '.md');
 console.log(`🔍 File base to add: ${fileBase}`);
 console.log(`🔍 Commit message: ${commitMessage}`);
 
+// Path to your _toc.yml file
 const tocPath = 'docs/_toc.yml';
 
 try {
   const tocContent = fs.readFileSync(tocPath, 'utf8');
   const toc = yaml.load(tocContent);
 
-  // Ensure that toc.parts exists
+  // Ensure that toc.parts exists (assuming your TOC uses a top-level 'parts' field)
   if (!toc.parts) {
     toc.parts = [];
   }
 
-  // Function to add fileBase under the appropriate caption (case-insensitive)
+  // Function to add fileBase under a given caption (case-insensitive)
   function addFileToCaption(tocParts, caption, fileBase) {
     let part = tocParts.find(p => p.caption.toLowerCase() === caption.toLowerCase());
     if (!part) {
@@ -36,7 +37,7 @@ try {
       tocParts.push(part);
     }
 
-    // Check if fileBase already exists in this part's chapters.
+    // Check if fileBase is already present
     const exists = part.chapters.some(ch => {
       if (typeof ch === 'object' && ch.file) {
         return ch.file.toLowerCase() === fileBase.toLowerCase();
@@ -56,10 +57,10 @@ try {
 
   addFileToCaption(toc.parts, commitMessage, fileBase);
 
-  // Write updated TOC back to file
+  // Write the updated TOC back to the file
   const newTocContent = yaml.dump(toc);
   fs.writeFileSync(tocPath, newTocContent, 'utf8');
-  console.log(`✅ Updated TOC successfully. New content:\n${newTocContent}`);
+  console.log(`✅ Updated TOC with ${fileBase} under "${commitMessage}"`);
 } catch (err) {
   console.error("❌ ERROR updating TOC:", err);
   process.exit(1);

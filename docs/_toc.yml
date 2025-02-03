@@ -16,6 +16,4 @@ parts:
     chapters:
       - file: fusion 360 setup
       - file: website editing
-  - caption: changes
-    chapters:
-      - file: test
+

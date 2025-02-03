@@ -21,7 +21,7 @@ jobs:
       - name: Create output directories
         run: |
           mkdir -p docs/md
-          mkdir -p docs/images  # Ensure the images folder exists
+          mkdir -p docs/images  # Ensure images folder exists
 
       - name: Convert DOCX to Markdown
         id: convert
@@ -38,13 +38,14 @@ jobs:
             echo "📝 Processing $file"
             filename=$(basename "$file" .docx)
 
-            # Convert DOCX to Markdown, extracting images to docs/images.
+            # Convert DOCX to Markdown, extracting images to docs/images/media/
             pandoc "$file" -f docx -t markdown --wrap=preserve --extract-media=docs/images -o docs/md/"$filename".md
             echo "✅ Converted $file to docs/md/$filename.md"
 
-            # Fix image links: Change "docs/md/media/" to "../images/media/"
+            # Fix incorrect image paths in the Markdown file
             sed -i 's#docs/md/media/#../images/media/#g' docs/md/"$filename".md
             sed -i 's#media/#../images/media/#g' docs/md/"$filename".md
+            sed -i 's#docs/md/docs/images/media/#../images/media/#g' docs/md/"$filename".md  # Ensure full correction
 
             echo "🔍 Preview of converted file (first 10 lines):"
             head -n 10 docs/md/"$filename".md

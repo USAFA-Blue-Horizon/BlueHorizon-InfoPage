@@ -42,9 +42,9 @@ jobs:
             pandoc "$file" -f docx -t markdown --wrap=preserve --extract-media=docs/md -o docs/md/"$filename".md
             echo "✅ Converted $file to docs/md/$filename.md"
 
-            # Debugging: Check if the images are extracted correctly
-            echo "🔍 Extracted images:"
-            ls -R docs/md/media/
+            # Fix incorrect image paths inside the generated Markdown file
+            sed -i 's#docs/md/docs/md/media/#media/#g' docs/md/"$filename".md  # Remove redundant path prefix
+            sed -i 's#docs/md/media/#media/#g' docs/md/"$filename".md  # Standardize correct path
 
             echo "🔍 Preview of converted file (first 10 lines):"
             head -n 10 docs/md/"$filename".md

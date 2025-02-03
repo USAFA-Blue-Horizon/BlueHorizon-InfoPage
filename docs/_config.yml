@@ -35,12 +35,7 @@ repository:
   branch: master  # Which branch of the repository should be used when creating links (optional)
 
 # Configuration for Sphinx
-sphinx:
-  config:
-    # This tells Sphinx: from the docs folder, go up one level (to the repo root), then into extra/admin.
-    html_extra_path: ["../extra/admin"]
-    # Exclude patterns aren’t needed here if the folder is entirely extra.
-    exclude_patterns: []
+
 
 
   

@@ -1,22 +1,26 @@
-# docs/admin/config.yml
+site_url: https://bluehorizon.club
+display_url: https://bluehorizon.club
+publish_mode: editorial_workflow
+show_preview_links: true
+
 backend:
   name: github
-  repo: your-github-username/BlueHorizon-InfoPage  # Replace with your GitHub repo
-  branch: main  # Your default branch
-  base_url: https://bluehorizon.club  # Your site URL
+  repo: USAFA-Blue-Horizon/BlueHorizon-InfoPage
+  branch: main
+  base_url: https://bluehorizon.club
+  auth_endpoint: /api/auth
+  squash_merges: true
+  preview_context: "cloudflare preview deploy"
 
-# Media storage (images will go to your existing `pictures` folder)
-media_folder: "pictures"  # Path relative to `docs/`
-public_folder: "/pictures"  # Public URL path
+media_folder: "docs/images/uploads"
+public_folder: "/images/uploads"
 
-# Content collections (blog posts)
 collections:
-  - name: "blog"
-    label: "Blog Posts"
-    folder: "content/blog"  # New folder for blog posts
-    create: true  # Allow users to create new posts
-    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+  - name: pages
+    label: Pages
+    folder: "docs"         # Adjust if your content is stored in a different folder
+    create: true
+    slug: "{{slug}}"
     fields:
-      - { name: "title", label: "Title", widget: "string" }
-      - { name: "date", label: "Date", widget: "datetime" }
-      - { name: "body", label: "Content", widget: "markdown" }
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Body", name: "body", widget: "markdown" }

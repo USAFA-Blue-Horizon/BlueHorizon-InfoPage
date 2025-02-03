@@ -1,24 +1,21 @@
-# Table of contents
-# Learn more at https://jupyterbook.org/customize/toc.html
-
 format: jb-book
 root: intro
 parts:
-  - caption: "Team Info"
+  - caption: Team Info
     chapters:
-    - file: schedule
-  - caption: "Subteams"
+      - file: schedule
+  - caption: Subteams
     chapters:
-    - file: research
-    - file: competition
-    - file: support
-  - caption: "Past Years"
+      - file: research
+      - file: competition
+      - file: support
+  - caption: Past Years
     chapters:
-    - file: USLI
-  - caption: "Resources"
+      - file: USLI
+  - caption: Resources
     chapters:
-    - file: fusion 360 setup
-    - file: website editing
-  
-
-
+      - file: fusion 360 setup
+      - file: website editing
+  - caption: changes
+    chapters:
+      - file: test

@@ -19,7 +19,9 @@ jobs:
           sudo apt-get install -y pandoc
 
       - name: Create output directories
-        run: mkdir -p docs/md docs/images  # Ensure the folders exist
+        run: |
+          mkdir -p docs/md
+          mkdir -p docs/images  # Ensure images folder exists
 
       - name: Convert DOCX to Markdown
         id: convert
@@ -35,14 +37,14 @@ jobs:
           for file in $files; do
             echo "📝 Processing $file"
             filename=$(basename "$file" .docx)
-
-            # Convert DOCX to Markdown with extracted images stored in docs/images/
-            pandoc "$file" -f docx -t markdown --wrap=preserve --extract-media=docs/pictures -o docs/md/"$filename".md
-
-            # Fix image links in the generated Markdown (replace 'media/' with '../images/')
-            sed -i 's#media/#../images/#g' docs/md/"$filename".md
-
+            # Convert DOCX to Markdown, extracting media into docs/images.
+            pandoc "$file" -f docx -t markdown --wrap=preserve --extract-media=docs/images -o docs/md/"$filename".md
             echo "✅ Converted $file to docs/md/$filename.md"
+            # Replace image links: Change occurrences of 'media/' to '../images/'
+            sed -i 's#media/#../images/#g' docs/md/"$filename".md
+            echo "🔍 Preview of converted file (first 10 lines):"
+            head -n 10 docs/md/"$filename".md
+            # Save the path of the last converted file (if multiple, the last one wins)
             echo "mdfile=docs/md/$filename.md" >> $GITHUB_ENV
           done
 
@@ -54,7 +56,7 @@ jobs:
           COMMIT_MESSAGE: ${{ github.event.head_commit.message }}
           NEW_FILE: ${{ env.mdfile }}
         run: |
-          echo "📘 Updating TOC with commit message: $COMMIT_MESSAGE and file: $NEW_FILE"
+          echo "📘 Updating TOC with commit message: $COMMIT_MESSAGE and NEW_FILE: $NEW_FILE"
           node .github/scripts/update-toc.js
 
       - name: Commit changes

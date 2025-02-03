@@ -5,7 +5,16 @@
     <title>Content Manager</title>
   </head>
   <body>
-    <!-- Include Netlify CMS from a CDN -->
-    <script src="https://unpkg.com/netlify-cms@^2.0.0/dist/netlify-cms.js"></script>
+    <!-- Load Decap CMS from CDN -->
+    <script src="https://unpkg.com/decap-cms@3.4.0/dist/decap-cms.js"></script>
+    <script>
+      // Optionally, if Decap CMS does not automatically register its default media library,
+      // you can attempt to register it manually:
+      if (typeof CMS.getDefaultMediaLibrary === 'function') {
+        CMS.registerMediaLibrary(CMS.getDefaultMediaLibrary());
+      }
+      // Initialize the CMS
+      CMS.init();
+    </script>
   </body>
 </html>

@@ -8,5 +8,5 @@ Image test
 
 ```{image} ./media/image1.png
 :width: 318
-:height: 191
+:height: 355
 ```

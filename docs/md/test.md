@@ -6,5 +6,9 @@ Some text **some bold text**
 
 Image test
 
-![A screenshot of a computer
-Description automatically generated](./media/image1.png){width="499px" height="193px"}
+```{image} ./media/image1.png
+:alt: A screenshot of a computer
+Description automatically generated
+:width: 320px
+:height: 193px
+```

@@ -31,7 +31,7 @@ jobs:
           file=$(echo $files | awk '{print $1}')
           echo "Processing $file"
           filename=$(basename "$file" .docx)
-          pandoc "$file" -f docx -t markdown --wrap=preserve --atx-headers -o docs/md/"$filename".md
+          pandoc "$file" -f docx -t markdown --wrap=none -o docs/md/"$filename".md
           echo "Converted $file to docs/md/$filename.md"
           echo "::set-output name=mdfile::docs/md/$filename.md"
 

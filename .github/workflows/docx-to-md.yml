@@ -39,7 +39,7 @@ jobs:
             filename=$(basename "$file" .docx)
 
             # Convert DOCX to Markdown, extracting images into docs/md/media/
-            pandoc "$file" -f docx -t markdown --wrap=preserve --extract-media=. -o docs/md/"$filename".md
+            pandoc "$file" -f docx -t markdown --wrap=preserve --extract-media=. --dpi=96 -o docs/md/"$filename".md
             echo "✅ Converted $file to docs/md/$filename.md"
 
             echo "🔍 Preview of converted file (first 10 lines):"

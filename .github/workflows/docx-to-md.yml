@@ -39,17 +39,8 @@ jobs:
             filename=$(basename "$file" .docx)
 
             # Convert DOCX to Markdown, extracting images into docs/md/media/
-            pandoc "$file" -f docx -t markdown --wrap=preserve --extract-media=docs/md -o docs/md/"$filename".md
+            pandoc "$file" -f docx -t markdown --wrap=preserve --extract-media=. -o docs/md/"$filename".md
             echo "✅ Converted $file to docs/md/$filename.md"
-
-            # Remove incorrect width/height attributes from Markdown images
-            sed -i 's#{width=.*}##g' docs/md/"$filename".md
-            sed -i 's#{height=.*}##g' docs/md/"$filename".md
-            sed -i 's#{width=.* height=.*}##g' docs/md/"$filename".md
-
-            # Fix incorrect image paths inside the generated Markdown file
-            sed -i 's#docs/md/docs/md/media/#media/#g' docs/md/"$filename".md  # Remove redundant path prefix
-            sed -i 's#docs/md/media/#media/#g' docs/md/"$filename".md  # Standardize correct path
 
             echo "🔍 Preview of converted file (first 10 lines):"
             head -n 10 docs/md/"$filename".md

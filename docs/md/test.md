@@ -7,4 +7,4 @@ Some text **some bold text**
 Image test
 
 ![A screenshot of a computer
-Description automatically generated](./media/image1.png){width="1.8367727471566053in" height="2.006676509186352in"}
+Description automatically generated](./media/image1.png){width="499px" height="193px"}

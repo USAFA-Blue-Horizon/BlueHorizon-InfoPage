@@ -17,6 +17,3 @@ parts:
     chapters:
       - file: fusion 360 setup
       - file: website editing
-  - caption: GitHub Actions Test
-    chapters:
-      - file: md/test

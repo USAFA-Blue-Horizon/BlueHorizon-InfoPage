@@ -4,12 +4,12 @@ parts:
   - caption: Team Info
     chapters:
       - file: schedule
-      - file: md/test
   - caption: Subteams
     chapters:
       - file: research
       - file: competition
       - file: support
+      - file: md/test
   - caption: Past Years
     chapters:
       - file: USLI

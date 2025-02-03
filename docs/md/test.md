@@ -7,8 +7,9 @@ Some text **some bold text**
 Image test
 
 ```{image} ./media/image1.png
-:width: 318
-:height: 211
+:width: 413
+:height: 275
+:align: center
 ```
 
 This is a image of

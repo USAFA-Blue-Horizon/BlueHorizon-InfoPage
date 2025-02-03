@@ -5,10 +5,21 @@
     <title>Content Manager</title>
   </head>
   <body>
-    <!-- Load Decap CMS from CDN -->
+    <!-- Load Decap CMS from CDN (using version 3.5.0 for this example) -->
     <script src="https://unpkg.com/decap-cms@3.5.0/dist/decap-cms.js"></script>
     <script>
-      // Initialize Decap CMS; no additional customization for now.
+      // Register a dummy media library to satisfy the configuration.
+      CMS.registerMediaLibrary({
+        name: "default",
+        show: function() {
+          // No operation: if a user tries to open the media library, do nothing.
+        },
+        hide: function() {
+          // No operation.
+        }
+      });
+
+      // Initialize the CMS
       CMS.init();
     </script>
   </body>

@@ -14,13 +14,11 @@ backend:
 
 media_folder: "docs/images/uploads"
 public_folder: "/images/uploads"
-media_library:
-  name: default
 
 collections:
   - name: pages
     label: Pages
-    folder: "docs"         # Adjust if your content is stored in a different folder
+    folder: "docs"
     create: true
     slug: "{{slug}}"
     fields:

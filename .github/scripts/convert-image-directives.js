@@ -45,7 +45,7 @@ fs.readFile(filePath, 'utf8', (err, data) => {
     output += ":width: " + width + "\n";
     output += ":height: " + height + "\n";
     if (align) {
-      output += ":align: " + align + "\n";
+      output += ":align: " + "center" + "\n";
     }
     output += "```";
     return output;

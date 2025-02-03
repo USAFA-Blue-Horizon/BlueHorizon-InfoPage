@@ -52,6 +52,10 @@ jobs:
 
 
           done
+      - name: Convert image syntax to MyST directives
+        run: |
+          echo "🔍 Converting image syntax in ${{ env.mdfile }} to MyST directives"
+          node .github/scripts/convert-image-directives.js ${{ env.mdfile }}
 
       - name: Install js-yaml dependency
         run: npm install js-yaml

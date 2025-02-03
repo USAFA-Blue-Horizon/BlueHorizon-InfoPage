@@ -1,11 +1,9 @@
-// functions/api/auth.js
-
 export async function onRequest(context) {
     const { request, env } = context;
     const url = new URL(request.url);
     const code = url.searchParams.get('code');
   
-    // If no code is provided, redirect to GitHub's OAuth authorize page.
+    // If no code, redirect user to GitHub for authorization.
     if (!code) {
       const clientId = env.GITHUB_CLIENT_ID;
       const redirectUri = `${url.origin}/api/auth`;
@@ -13,10 +11,9 @@ export async function onRequest(context) {
       return Response.redirect(githubOAuthUrl, 302);
     }
   
-    // If a code is provided, exchange it for an access token.
+    // Exchange the code for an access token.
     const clientId = env.GITHUB_CLIENT_ID;
     const clientSecret = env.GITHUB_CLIENT_SECRET;
-  
     const tokenResponse = await fetch('https://github.com/login/oauth/access_token', {
       method: 'POST',
       headers: {
@@ -29,12 +26,16 @@ export async function onRequest(context) {
         code: code
       })
     });
-  
     const tokenData = await tokenResponse.json();
   
-    // You can customize this response as needed (e.g., set a cookie, redirect, etc.)
-    return new Response(JSON.stringify(tokenData), {
-      headers: { "Content-Type": "application/json" }
-    });
+    // Create headers to set a cookie with the access token.
+    // Adjust cookie name if needed; Decap CMS does not automatically read this cookie,
+    // but you can later customize the CMS to check it if desired.
+    const headers = new Headers();
+    headers.append("Set-Cookie", `CMS_ACCESS_TOKEN=${tokenData.access_token}; Path=/; HttpOnly; Secure; SameSite=Lax`);
+    // Redirect the window back to the admin interface.
+    headers.append("Location", `${url.origin}/admin/`);
+  
+    return new Response(null, { status: 302, headers });
   }
   

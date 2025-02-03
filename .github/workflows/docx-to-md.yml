@@ -21,7 +21,7 @@ jobs:
       - name: Create output directories
         run: |
           mkdir -p docs/md
-          mkdir -p docs/images  # Ensure images folder exists
+          mkdir -p docs/md/media  # Ensure images are saved inside md/media/
 
       - name: Convert DOCX to Markdown
         id: convert
@@ -38,14 +38,9 @@ jobs:
             echo "📝 Processing $file"
             filename=$(basename "$file" .docx)
 
-            # Convert DOCX to Markdown, extracting images to docs/images/media/
-            pandoc "$file" -f docx -t markdown --wrap=preserve --extract-media=docs/images -o docs/md/"$filename".md
+            # Convert DOCX to Markdown, extracting images into docs/md/media/
+            pandoc "$file" -f docx -t markdown --wrap=preserve --extract-media=docs/md -o docs/md/"$filename".md
             echo "✅ Converted $file to docs/md/$filename.md"
-
-            # Fix incorrect image paths in the Markdown file
-            sed -i 's#docs/md/media/#../images/media/#g' docs/md/"$filename".md
-            sed -i 's#media/#../images/media/#g' docs/md/"$filename".md
-            sed -i 's#docs/md/docs/images/media/#../images/media/#g' docs/md/"$filename".md  # Ensure full correction
 
             echo "🔍 Preview of converted file (first 10 lines):"
             head -n 10 docs/md/"$filename".md
@@ -68,5 +63,5 @@ jobs:
       - name: Commit changes
         uses: EndBug/add-and-commit@v9
         with:
-          add: "docs/md/*.md docs/images/* docs/_toc.yml"
+          add: "docs/md/*.md docs/md/media/* docs/_toc.yml"
           message: "Convert DOCX files to Markdown and update TOC + images"

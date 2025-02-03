@@ -22,21 +22,29 @@ jobs:
         run: mkdir -p docs/md
 
       - name: Convert DOCX to Markdown
+        id: convert
         run: |
           echo "Searching for DOCX files in docs/docx/"
           files=$(find docs/docx -type f -name "*.docx")
           echo "Found files: $files"
-          for file in $files; do
-            echo "Processing $file"
-            filename=$(basename "$file" .docx)
-            pandoc "$file" -f docx -t markdown -o docs/md/"$filename".md
-            echo "Converted $file to docs/md/$filename.md"
-            echo "Contents of docs/md/$filename.md:"
-            cat docs/md/"$filename".md
-          done
+          # For this example, process one file (you can extend for multiple)
+          file=$(echo $files | awk '{print $1}')
+          echo "Processing $file"
+          filename=$(basename "$file" .docx)
+          pandoc "$file" -f docx -t markdown --wrap=preserve --atx-headers -o docs/md/"$filename".md
+          echo "Converted $file to docs/md/$filename.md"
+          echo "::set-output name=mdfile::docs/md/$filename.md"
+
+      - name: Update TOC
+        env:
+          COMMIT_MESSAGE: ${{ github.event.head_commit.message }}
+          NEW_FILE: ${{ steps.convert.outputs.mdfile }}
+        run: |
+          echo "Updating TOC with commit message: $COMMIT_MESSAGE and file: $NEW_FILE"
+          node .github/scripts/update-toc.js
 
       - name: Commit changes
         uses: EndBug/add-and-commit@v9
         with:
-          add: "docs/md/*.md"
-          message: "Convert DOCX files to Markdown"
+          add: "docs/md/*.md docs/_toc.yml"
+          message: "Convert DOCX files to Markdown and update TOC"

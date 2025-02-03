@@ -42,7 +42,7 @@ fs.readFile(filePath, 'utf8', (err, data) => {
     // Optionally, you could convert inch values to pixels here if they end with "in".
     // For now, we assume width and height are already in px (if not, you can adjust below).
     // Remove any extraneous quotes if needed.
-    return "```{image} " + imgPath + "\n:alt: " + alt + "\n:width: " + width + "\n:height: " + height + "\n```";
+    return "```{image} " + imgPath + "\n:width: " + width + "\n:height: " + height + "\n```";
   });
   
   fs.writeFile(filePath, newData, 'utf8', (err) => {

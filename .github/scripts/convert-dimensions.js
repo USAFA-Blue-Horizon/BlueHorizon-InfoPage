@@ -29,7 +29,7 @@ fs.readFile(filePath, 'utf8', (err, data) => {
   const newData = data.replace(regex, (match, widthIn, heightIn) => {
     const widthPx = Math.round(parseFloat(widthIn) * dpi);
     const heightPx = Math.round(parseFloat(heightIn) * dpi);
-    return `{width="${widthPx}px" height="${heightPx}px"}`;
+    return `{width="${widthPx}" height="${heightPx}"}`;
   });
   fs.writeFile(filePath, newData, 'utf8', (err) => {
     if (err) {

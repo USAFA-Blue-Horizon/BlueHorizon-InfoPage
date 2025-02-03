@@ -4,6 +4,7 @@ parts:
   - caption: Team Info
     chapters:
       - file: schedule
+      - file: md/test
   - caption: Subteams
     chapters:
       - file: research

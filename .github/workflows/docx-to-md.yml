@@ -37,14 +37,19 @@ jobs:
           for file in $files; do
             echo "📝 Processing $file"
             filename=$(basename "$file" .docx)
+
             # Convert DOCX to Markdown, extracting images to docs/images.
             pandoc "$file" -f docx -t markdown --wrap=preserve --extract-media=docs/images -o docs/md/"$filename".md
             echo "✅ Converted $file to docs/md/$filename.md"
-            # Replace occurrences of "media/" with the correct relative path "../images/media/".
+
+            # Fix image links: Change "docs/md/media/" to "../images/media/"
+            sed -i 's#docs/md/media/#../images/media/#g' docs/md/"$filename".md
             sed -i 's#media/#../images/media/#g' docs/md/"$filename".md
+
             echo "🔍 Preview of converted file (first 10 lines):"
             head -n 10 docs/md/"$filename".md
-            # Save the path of the last converted file (if processing multiple, the last one will be stored)
+
+            # Save the path of the last converted file
             echo "mdfile=docs/md/$filename.md" >> $GITHUB_ENV
           done
 

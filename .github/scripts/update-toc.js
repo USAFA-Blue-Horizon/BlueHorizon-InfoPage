@@ -2,7 +2,7 @@ const fs = require('fs');
 const yaml = require('js-yaml');
 const path = require('path');
 
-// Read environment variables from process.env
+// Read environment variables from GitHub Actions
 const commitMessage = process.env.COMMIT_MESSAGE;  // e.g., "Team Info"
 const newFile = process.env.NEW_FILE;              // e.g., "docs/md/test.md"
 
@@ -11,24 +11,45 @@ if (!commitMessage || !newFile) {
   process.exit(1);
 }
 
-// Extract the file base name and ensure it has the "md/" prefix
+// Extract filename without extension, ensuring it uses the "md/" prefix
 const fileBase = "md/" + path.basename(newFile, '.md');
 console.log(`🔍 File base to add: ${fileBase}`);
 console.log(`🔍 Commit message: ${commitMessage}`);
 
-// Path to your _toc.yml file
 const tocPath = 'docs/_toc.yml';
 
 try {
   const tocContent = fs.readFileSync(tocPath, 'utf8');
   const toc = yaml.load(tocContent);
 
-  // Ensure that toc.parts exists (assuming your TOC uses a top-level 'parts' field)
+  // Ensure that toc.parts exists
   if (!toc.parts) {
     toc.parts = [];
   }
 
-  // Function to add fileBase under a given caption (case-insensitive)
+  // Remove file from any existing section
+  function removeFileFromOldSection(tocParts, fileBase) {
+    let removedSection = null;
+    for (let i = tocParts.length - 1; i >= 0; i--) {
+      const part = tocParts[i];
+      const newChapters = part.chapters.filter(ch => ch.file !== fileBase);
+      if (newChapters.length !== part.chapters.length) {
+        console.log(`❌ Removing ${fileBase} from section: ${part.caption}`);
+        part.chapters = newChapters;
+        if (part.chapters.length === 0) {
+          removedSection = part.caption; // Mark the section for removal
+        }
+      }
+    }
+
+    // Remove empty sections
+    if (removedSection) {
+      toc.parts = toc.parts.filter(p => p.caption !== removedSection);
+      console.log(`🗑️ Removed empty section: ${removedSection}`);
+    }
+  }
+
+  // Function to add fileBase under a new caption
   function addFileToCaption(tocParts, caption, fileBase) {
     let part = tocParts.find(p => p.caption.toLowerCase() === caption.toLowerCase());
     if (!part) {
@@ -37,16 +58,8 @@ try {
       tocParts.push(part);
     }
 
-    // Check if fileBase is already present
-    const exists = part.chapters.some(ch => {
-      if (typeof ch === 'object' && ch.file) {
-        return ch.file.toLowerCase() === fileBase.toLowerCase();
-      } else if (typeof ch === 'string') {
-        return ch.toLowerCase() === fileBase.toLowerCase();
-      }
-      return false;
-    });
-
+    // Check if fileBase already exists in this part's chapters.
+    const exists = part.chapters.some(ch => ch.file === fileBase);
     if (!exists) {
       console.log(`✅ Adding ${fileBase} to section: ${caption}`);
       part.chapters.push({ file: fileBase });
@@ -55,6 +68,10 @@ try {
     }
   }
 
+  // Remove the file from any old section
+  removeFileFromOldSection(toc.parts, fileBase);
+
+  // Add it to the new section
   addFileToCaption(toc.parts, commitMessage, fileBase);
 
   // Write the updated TOC back to the file

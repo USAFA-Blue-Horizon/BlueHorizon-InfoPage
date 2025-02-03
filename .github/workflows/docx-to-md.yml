@@ -1,0 +1,44 @@
+name: Convert DOCX to Markdown
+
+# Trigger the workflow when DOCX files are pushed or modified in docs/docx/
+on:
+  push:
+    paths:
+      - "docs/docx/**/*.docx"
+  workflow_dispatch:  # Allow manual triggering
+
+jobs:
+  convert:
+    runs-on: ubuntu-latest
+    steps:
+      # Step 1: Check out the repository.
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      # Step 2: Install Pandoc.
+      - name: Install Pandoc
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y pandoc
+
+      # Step 3: Create output directory if it doesn't exist.
+      - name: Create output directory
+        run: mkdir -p docs/md
+
+      # Step 4: Convert all DOCX files in docs/docx/ to Markdown.
+      - name: Convert DOCX to Markdown
+        run: |
+          for file in $(find docs/docx -type f -name "*.docx"); do
+            echo "Processing $file"
+            filename=$(basename "$file" .docx)
+            pandoc "$file" -f docx -t markdown -o docs/md/"$filename".md
+          done
+
+      # Step 5: Commit and push the changes if there are any.
+      - name: Commit changes
+        run: |
+          git config --global user.name "GitHub Action"
+          git config --global user.email "action@github.com"
+          git add docs/md/*.md
+          git diff --quiet && echo "No changes to commit" || git commit -m "Convert DOCX files to Markdown"
+          git push

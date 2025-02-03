@@ -2,16 +2,17 @@
  * convert-image-directives.js
  *
  * This script reads a Markdown file and converts Pandoc image syntax
- * with dimension attributes into a MyST image directive.
+ * with dimension attributes (and an optional alignment) into a MyST image directive.
  *
  * Example Input:
- * ![Alt text](media/image1.png){width="499px" height="193px"}
+ * ![Alt text](media/image1.png){width="499px" height="193px" align="center"}
  *
  * Example Output:
  * ```{image} media/image1.png
  * :alt: Alt text
  * :width: 499px
  * :height: 193px
+ * :align: center
  * ```
  */
 
@@ -30,19 +31,24 @@ fs.readFile(filePath, 'utf8', (err, data) => {
     process.exit(1);
   }
   
-  // Regex to match Pandoc image syntax with dimensions.
+  // Regex to match Pandoc image syntax with dimensions and an optional alignment.
   // Capture groups:
-  // 1: Alt text
-  // 2: Image path
-  // 3: Width value (including "px" if present, or with "in")
-  // 4: Height value
-  const regex = /!\[([^\]]*)\]\(([^)]+)\)\{width="([^"]+)"\s+height="([^"]+)"\}/g;
+  //   1: Alt text
+  //   2: Image path
+  //   3: Width value
+  //   4: Height value
+  //   5: Optional align value
+  const regex = /!\[([^\]]*)\]\(([^)]+)\)\{width="([^"]+)"\s+height="([^"]+)"(?:\s+align="([^"]+)")?\}/g;
   
-  const newData = data.replace(regex, (match, alt, imgPath, width, height) => {
-    // Optionally, you could convert inch values to pixels here if they end with "in".
-    // For now, we assume width and height are already in px (if not, you can adjust below).
-    // Remove any extraneous quotes if needed.
-    return "```{image} " + imgPath + "\n:width: " + width + "\n:height: " + height + "\n```";
+  const newData = data.replace(regex, (match, alt, imgPath, width, height, align) => {
+    let output = "```{image} " + imgPath + "\n";
+    output += ":width: " + width + "\n";
+    output += ":height: " + height + "\n";
+    if (align) {
+      output += ":align: " + align + "\n";
+    }
+    output += "```";
+    return output;
   });
   
   fs.writeFile(filePath, newData, 'utf8', (err) => {

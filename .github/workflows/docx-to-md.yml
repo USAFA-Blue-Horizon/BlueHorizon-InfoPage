@@ -47,6 +47,17 @@ jobs:
 
             # Save the path of the last converted file
             echo "mdfile=docs/md/$filename.md" >> $GITHUB_ENV
+
+            awk '
+            function convert_inches_to_pixels(value) {
+                return int(value * 96);  # Convert inches to pixels (96 DPI)
+            }
+            {
+                gsub(/\{width=([0-9.]+)in height=([0-9.]+)in\}/,
+                     "{ width=" convert_inches_to_pixels(substr($0, RSTART+7, RLENGTH-16)) "px height=" convert_inches_to_pixels(substr($0, RSTART+RLENGTH-8)) "px }");
+                print;
+            }' docs/md/"$filename".md > docs/md/"$filename".md.tmp && mv docs/md/"$filename".md.tmp docs/md/"$filename".md
+
           done
 
       - name: Install js-yaml dependency

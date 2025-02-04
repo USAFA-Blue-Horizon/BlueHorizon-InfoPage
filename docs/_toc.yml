@@ -1,7 +1,7 @@
 format: jb-book
 root: intro
 parts:
-  - caption: Team Info
+  - caption: Team Information
     chapters:
       - file: schedule
   - caption: Subteams

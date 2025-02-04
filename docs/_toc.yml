@@ -19,8 +19,6 @@ parts:
   - caption: Docx Files
     chapters:
       - file: md/test
-  - caption: >-
-      Merge branch 'main' of
-      https://github.com/USAFA-Blue-Horizon/BlueHorizon-InfoPage
+  - caption: Test2
     chapters:
       - file: md/test2

@@ -16,9 +16,7 @@ parts:
     chapters:
       - file: fusion 360 setup
       - file: website editing
-  - caption: Test2
-    chapters:
-      - file: md/test2
   - caption: Import from Teams
     chapters:
       - file: md/test
+      - file: md/test2

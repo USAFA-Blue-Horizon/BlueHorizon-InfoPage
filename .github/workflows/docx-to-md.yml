@@ -1,10 +1,10 @@
 name: Convert DOCX to Markdown
 
-on:
-  push:
-    paths:
-      - "docs/docx/**/*.docx"
-  workflow_dispatch:
+# on:
+#   push:
+#     paths:
+#       - "docs/docx/**/*.docx"
+#   workflow_dispatch:
 
 jobs:
   convert:

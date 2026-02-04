@@ -32,7 +32,7 @@ html:
 repository:
   url: https://github.com/grantstec/BlueHorizon-InfoPage  # Online location of your book
   path_to_book: docs  # Optional path to your book, relative to the repository root
-  branch: master  # Which branch of the repository should be used when creating links (optional)
+  branch: main  # Which branch of the repository should be used when creating links (optional)
 
 # Configuration for Sphinx
 

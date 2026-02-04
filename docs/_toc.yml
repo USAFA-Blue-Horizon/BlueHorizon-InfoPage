@@ -3,20 +3,38 @@ root: intro
 parts:
   - caption: Team Information
     chapters:
-      - file: schedule
+      - file: team/MAIN schedule
   - caption: Subteams
     chapters:
-      - file: research
-      - file: competition
-      - file: support
+      - file: subteams/engine/MAIN Engine
+        sections:
+          - file: subteams/engine/Engine Design
+          - file: subteams/engine/Engine Testing
+      - file: subteams/structures/MAIN Structures
+        sections:
+          - file: subteams/structures/Structures Design
+          - file: subteams/structures/Structures Testing
+      - file: subteams/gse/MAIN GSE
+        sections:
+          - file: subteams/gse/Trailer Test Stand
+          - file: subteams/gse/Custom Steel Test Stand
+          - file: subteams/gse/DAQ System
+          - file: subteams/gse/Communications System
+      - file: subteams/flight_computer/MAIN Flight Computer
+        sections:
+          - file: subteams/flight_computer/Flight Computer Schematic Design
+          - file: subteams/flight_computer/Flight Computer PCB Design
+          - file: subteams/flight_computer/Flight Computer Testing
+          - file: subteams/flight_computer/Flight Computer Software
+      - file: subteams/sim_controls/MAIN Simulation and Controls
+        sections:
+          - file: subteams/sim_controls/SIMULINK Simulation
+          - file: subteams/sim_controls/Control Algorithm
   - caption: Past Years
     chapters:
-      - file: USLI
+      - file: past_years/MAIN 2024-2025 Mojave Sphinx
+      - file: past_years/MAIN 2023-2024 NASA USLI
   - caption: Resources
     chapters:
-      - file: fusion 360 setup
-      - file: website editing
-  - caption: Import from Teams
-    chapters:
-      - file: md/test
-      - file: md/test2
+      - file: resources/MAIN fusion 360 setup
+      - file: resources/MAIN website editing

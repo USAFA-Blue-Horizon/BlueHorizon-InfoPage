@@ -36,5 +36,4 @@ parts:
       - file: past_years/MAIN 2023-2024 NASA USLI
   - caption: Resources
     chapters:
-      - file: resources/MAIN fusion 360 setup
       - file: resources/MAIN website editing

@@ -1,4 +1,4 @@
-## BlueHorizon info page website hosted on Cloudfare at https://bluehorizon.club
+## BlueHorizon info page website
 Any pushes to main atuomatically update the website
 
 ## To learn how to edit go here https://bluehorizon.club/website%20editing

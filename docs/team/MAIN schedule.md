@@ -12,4 +12,4 @@ This timeline outlines our key milestones and events to keep us on track for the
 | **Apr 5th-8th**       | Tentative Test Fire. 🔥                                        |
 | **May 29th-June 2nd** | FAR Final Launch Period. 🚀                                    |
 | today                 | say hi to lucan                                                |
-![](Pasted%20image%2020260318164326.png)
+![](docs/team/Attachments/Pasted%20image%2020260318165037.png)

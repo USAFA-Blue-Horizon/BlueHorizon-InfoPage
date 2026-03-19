@@ -13,12 +13,24 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "docs/resources/MAIN website editing.md",
+                "file": "docs/subteams/engine/MAIN Engine.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "MAIN website editing"
+              "title": "MAIN Engine"
+            }
+          },
+          {
+            "id": "6e05e060a7218dee",
+            "type": "leaf",
+            "state": {
+              "type": "image",
+              "state": {
+                "file": "docs/subteams/engine/pictures/Capybara.png"
+              },
+              "icon": "lucide-image",
+              "title": "Capybara"
             }
           }
         ]
@@ -94,7 +106,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "docs/resources/MAIN website editing.md",
+                "file": "docs/subteams/engine/MAIN Engine.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -104,7 +116,7 @@
                 "unlinkedCollapsed": true
               },
               "icon": "links-coming-in",
-              "title": "Backlinks for MAIN website editing"
+              "title": "Backlinks for MAIN Engine"
             }
           },
           {
@@ -113,12 +125,12 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "docs/resources/MAIN website editing.md",
+                "file": "docs/subteams/engine/MAIN Engine.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               },
               "icon": "links-going-out",
-              "title": "Outgoing links from MAIN website editing"
+              "title": "Outgoing links from MAIN Engine"
             }
           },
           {
@@ -156,13 +168,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "docs/resources/MAIN website editing.md",
+                "file": "docs/subteams/engine/MAIN Engine.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Outline of MAIN website editing"
+              "title": "Outline of MAIN Engine"
             }
           }
         ]
@@ -185,6 +197,10 @@
   },
   "active": "199a35fa2c9814bb",
   "lastOpenFiles": [
+    "docs/subteams/engine/pictures/Capybara.png",
+    "docs/subteams/engine/MAIN Engine.md",
+    "docs/subteams/engine/pictures",
+    "docs/resources/MAIN website editing.md",
     "docs/BHlogosmall.png",
     "docs/BHlogolarge.png"
   ]
